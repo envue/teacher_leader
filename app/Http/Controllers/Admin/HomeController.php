@@ -3,44 +3,31 @@
 namespace App\Http\Controllers\Admin;
 
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Models\TimeEntry;
+use Carbon\Carbon;
 
 class HomeController
 {
     public function index()
     {
-        $settings1 = [
-            'chart_title'        => 'Number of Entries by Work Type',
-            'chart_type'         => 'bar',
-            'report_type'        => 'group_by_relationship',
-            'model'              => 'App\Models\TimeEntry',
-            'group_by_field'     => 'name',
-            'aggregate_function' => 'count',
-            'filter_field'       => 'created_at',
-            'filter_days'        => '90',
-            'column_class'       => 'col-md-12',
-            'entries_number'     => '5',
-            'relationship_name'  => 'work_type',
-        ];
+        $carbon_date_from = new Carbon('last Monday');
+        $from = $carbon_date_from->startOfDay();
+        $carbon_date_to = new Carbon('this Sunday');
+        $to = $carbon_date_to->endOfDay();
 
-        $chart1 = new LaravelChart($settings1);
-/*
-        $settings2 = [
-            'chart_title'           => 'Number of time entries created this year by month',
-            'chart_type'            => 'line',
-            'report_type'           => 'group_by_date',
-            'model'                 => 'App\Models\TimeEntry',
-            'group_by_field'        => 'start_time',
-            'group_by_period'       => 'month',
-            'aggregate_function'    => 'count',
-            'filter_field'          => 'created_at',
-            'filter_period'         => 'year',
-            //'group_by_field_format' => 'Y-m-d H:i:s',
-            'column_class'          => 'col-md-12',
-            'entries_number'        => '5',
-        ];
+        $time_entries = TimeEntry::whereBetween('start_time', [$from, $to])->get();
 
-        $chart2 = new LaravelChart($settings2); */
+        $time_entries_count = $time_entries->count();
 
-        return view('home', compact('chart1'));
+        $time_entries_minutes = 0;
+
+        foreach ($time_entries as $time_entry) {
+            $begin = Carbon::parse($time_entry->start_time, 'America/Chicago');
+            $end   = Carbon::parse($time_entry->end_time, 'America/Chicago');
+
+            $time_entries_minutes+= $begin->diffInMinutes($end);
+        }       
+
+        return view('home', compact('time_entries_count', 'time_entries_minutes'));
     }
 }

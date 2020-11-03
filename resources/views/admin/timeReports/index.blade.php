@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<h3 class="page-title">Time Overview Report</h3>
+<h3 class="page-title">Time overview report</h3>
 <br>
     <form method="get">
         <div class="row">
@@ -72,9 +72,7 @@
                 <!-- /.box-header -->
                 <div class="card-body">
                     <canvas id="worktypeChart"> </canvas>
-                </div>
-                <!-- /.box-body -->
-                <div class="card-footer">
+                    <br>
                     <table class="table table-bordered table-striped">
                         <tr>
                             <th>Time by work type</th>
@@ -108,9 +106,7 @@
                 <!-- /.box-header -->
                 <div class="card-body">
                     <canvas id="populationChart"> </canvas>
-                </div>
-                <!-- /.box-body -->
-                <div class="card-footer">
+                    <br>
                     <table id="projecttable" class="table table-bordered table-striped">
                             <tr>
                                 <th>Time by population</th>
@@ -142,9 +138,7 @@
                 <!-- /.box-header -->
                 <div class="card-body">
                     <canvas id="caseloadChart"> </canvas>
-                </div>
-                <!-- /.box-body -->
-                <div class="card-footer">
+                    <br>
                     <table id="projecttable" class="table table-bordered table-striped">
                             <tr>
                                 <th>Time by caseload type</th>
@@ -171,8 +165,6 @@
     @parent
 
     <!-- Include Required Prerequisites -->
-    <!--<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
-    <!--<script src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js"></script>-->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
@@ -293,12 +285,20 @@
                     label: '# of Minutes',
                     data: populationTypeData,
                     backgroundColor: [
-                        '--primary',
-                        '--success',
-                        '--warning',
-                        '--danger',
-                        '--indigo',
-                        '--navy',
+                        '#6610f2',  //indigo
+                        '#d81b60',  //maroon
+                        '#001f3f',  //navy
+                        '#3c8dbc',  //lightblue
+                        '#ff851b',  //orange
+                        '#39cccc',  //teal
+                        '#605ca8',  //purple
+                        '#e83e8c',  //pink
+                        '#3d9970',  //olive
+                        '#343a40',  //gray
+                        '#007bff',  //blue
+                        '#28a745',  //green
+                        '#dc3545',  //red
+                        '#000000',  //black
                     ],
                     borderWidth: 1
                 }]
@@ -330,20 +330,20 @@
                     label: '# of Minutes',
                     data: caseloadTypeData,
                     backgroundColor: [
-                        '#00a65a',
-                        '#00c0ef',
-                        '#f39c12',
-                        '#0073b7',
-                        '#001F3F',
-                        '#39CCCC',
-                        '#3D9970',
-                        '#01FF70',
-                        '#FF851B',
-                        '#F012BE',
-                        '#605ca8',
-                        '#D81B60',
-                        '#111',
-                        '#d2d6de'                        
+                        '#007bff',  //blue
+                        '#28a745',  //green
+                        '#dc3545',  //red
+                        '#ff851b',  //orange
+                        '#39cccc',  //teal
+                        '#605ca8',  //purple
+                        '#e83e8c',  //pink
+                        '#3d9970',  //olive
+                        '#343a40',  //gray
+                        '#6610f2',  //indigo
+                        '#d81b60',  //maroon
+                        '#001f3f',  //navy
+                        '#3c8dbc',  //lightblue
+                        '#000000',  //black                        
                     ],
                     borderWidth: 1
                 }]
