@@ -176,7 +176,7 @@
         responsivePriority: 1,
         className: "text-nowrap"
     }, {
-      responsivePriority: 1, 
+      responsivePriority: 1,
       targets: 1
     }],
     select: {

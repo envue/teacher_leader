@@ -79,26 +79,43 @@
 
             <div class="card-body">                
                 <form method="POST" action="{{ route("profile.password.updateHiddenWorkTypes") }}">
-                    @csrf
-                    <div class="row">
-                    @foreach($system_work_types as $id => $system_work_type)
-                    <div class="form-group col-md-4">
-                        <div class="">
-                            <input class="switch-input" type="checkbox" id="{{ $system_work_type }}-{{ $id }}" name="hidden_work_types[]" value="{{ $id }}" data-toggle="toggle" data-size="sm">
-                            <label class="switch-label" style="font-style: strong; margin-left: 5px;"for="{{ $system_work_type }}">{{ $system_work_type }}</label>
-                        </div>
-                    </div>
-                    @endforeach
-                    </div>
-            </div>
-            <div class="card-footer">
-                    <div class="form-group" style="margin-bottom: 0px">
-                        <button class="btn btn-danger" type="submit">
-                            {{ trans('global.save') }}
-                        </button>
-                    </div>
-            </div>
+                @csrf
+                <div class="table-responsive">
+                    <table class="table table-condensed  table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Work type</th>
+                                <th>Description</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @foreach($system_work_types as $id => $system_work_type)
+                            <tr>
+                                <td class="text-nowrap"> 
+                                    <input class="switch-input" type="checkbox" id="{{ $system_work_type['name'] }}-{{ $id }}" name="hidden_work_types[]" value="{{ $id }}" data-toggle="toggle" data-size="sm">
+                                    <label class="switch-label" style="font-style: strong; margin-left: 5px;"for="{{ $system_work_type['name'] }}">{{ $system_work_type['name'] }}</label>
+                                </td>
+                                <td>
+                                    {{ $system_work_type['description'] }}
+                                </td>
+                                <td>
+                                    <h5><span style="background-color:{{ $system_work_type['color'] }}; color: #ffffff;" class="badge">  {{ $system_work_type['color'] }}  </span></h5>
+                                </td>
+                            </tr>
+                            @endforeach
+                                                      
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-group" style="margin-bottom: 0px">
+                    <button class="btn btn-danger" type="submit">
+                        Save Settings
+                    </button>
+                </div>
                 </form>
+            </div>
         </div>
     </div>
 </div>
@@ -175,7 +192,7 @@
                 @can('user_edit')
                 { data: 'id', name: 'id' },
                 @endcan
-                { data: 'name', name: 'name' },
+                { data: 'name', name: 'name', className: 'text-nowrap' },
                 { data: 'description', name: 'description' },
                 { data: 'color', name: 'color' },
                 { data: 'use_population_type', name: 'use_population_type' },

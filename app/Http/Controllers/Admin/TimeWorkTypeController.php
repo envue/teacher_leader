@@ -21,7 +21,13 @@ class TimeWorkTypeController extends Controller
         abort_if(Gate::denies('time_work_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $user = auth()->user();
-        $system_work_types = TimeWorkType::where('system_value', '=', 1)->pluck('name', 'id');
+        //$system_work_types = TimeWorkType::where('system_value', '=', 1)->get();
+        
+        //Create an array of options with attributes
+        $system_work_types = TimeWorkType::where('system_value', '=', 1)->get()
+        ->mapWithKeys(function ($item) {
+                        return [$item->id => ['name' => $item->name, 'description' => $item->description, 'color' => $item->color, 'use_caseload_type' => $item->use_caseload_type, 'use_population_type' => $item->use_population_type]];
+                    })->all();;
         $user_hidden_work_types = $user->hidden_work_types;
 
         if ($request->ajax()) {
@@ -68,7 +74,7 @@ class TimeWorkTypeController extends Controller
             });
             
             $table->editColumn('color', function ($row) {
-                return $row->color ? $row->color : "";
+                return '<span style="background-color:'.($row->color).'; color: #ffffff;" class="badge">'.($row->color).'</span>';
             });
             $table->editColumn('use_population_type', function ($row) {
                 return '<input type="checkbox" style="pointer-events: none;" ' . ($row->use_population_type ? 'checked' : null) . '>';
@@ -81,7 +87,7 @@ class TimeWorkTypeController extends Controller
                 return '<input type="checkbox" style="pointer-events: none;"  ' . ($row->system_value ? 'checked' : null) . '>';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'use_population_type', 'use_caseload_type', 'system_value']);
+            $table->rawColumns(['actions', 'placeholder', 'use_population_type', 'use_caseload_type', 'system_value', 'color']);
 
             return $table->make(true);
         }
