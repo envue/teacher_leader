@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 @section('content')
 
-@can('time_work_type_create')
+<div class="row">
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <h3>Work types</h3>
         </div>
     </div>
-@endcan
+</div>
+
 <div class="row">
     <div class="col-lg-12">
     <div class="card">
@@ -31,11 +32,13 @@
                                 <small class="text-muted">Define custom work types for time entries and reports.</small>
                                 </h5>
                             </div>
+                            @can('time_work_type_create')
                             <div class="col-sm-4">
                                 <a class="btn btn-success btn-inline float-right" style="margin-top:10px;" href="{{ route('admin.time-work-types.create') }}">
                                 + Add custom work type
                                 </a>
                             </div>
+                            @endcan
                         </div>
                         @can('user_edit')
                         <div style="border-bottom:1px solid #ccc; margin-bottom: 20px;"></div>
@@ -93,24 +96,35 @@
                                 <table class="table table-condensed  table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Work type</th>
+                                            <th></th>
+                                            <th>Name</th>
                                             <th>Description</th>
                                             <th>Color</th>
+                                            <th>Uses Pop</th>
+                                            <th>Uses Case</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
                                         @foreach($system_work_types as $id => $system_work_type)
                                         <tr>
+                                            <td> 
+                                                <input class="switch-input" type="checkbox" id="{{ $system_work_type['name'] }}-{{ $id }}" name="hidden_work_types[]" value="{{ $id }}" data-toggle="toggle" data-size="sm" {{ $system_work_type['checked'] }}>
+                                            </td>
                                             <td class="text-nowrap"> 
-                                                <input class="switch-input" type="checkbox" id="{{ $system_work_type['name'] }}-{{ $id }}" name="hidden_work_types[]" value="{{ $id }}" data-toggle="toggle" data-size="sm">
-                                                <label class="switch-label" style="font-style: strong; margin-left: 5px;"for="{{ $system_work_type['name'] }}">{{ $system_work_type['name'] }}</label>
+                                                <label class="switch-label" for="{{ $system_work_type['name'] }}">{{ $system_work_type['name'] }}</label>
                                             </td>
                                             <td>
                                                 {{ $system_work_type['description'] }}
-                                            </td>
+                                            </td> 
                                             <td>
                                                 <h5><span style="background-color:{{ $system_work_type['color'] }}; color: #ffffff;" class="badge">  {{ $system_work_type['color'] }}  </span></h5>
+                                            </td>
+                                            <td> 
+                                                <input type="checkbox" style="pointer-events: none;" {{ $system_work_type['use_population_type'] }}>
+                                            </td>
+                                            <td> 
+                                                <input type="checkbox" style="pointer-events: none;" {{ $system_work_type['use_caseload_type'] }}>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -131,29 +145,10 @@
     </div>
 </div>
 
-
-
 @endsection
 @section('scripts')
 @parent
 <script>
-    //Toogle Switches
-    $('.switch-input').bootstrapToggle({
-        on: 'Off',
-        off: 'On',
-        onstyle: 'light',
-        offstyle: 'primary'
-        });
-
-    $('.switch-input').each(function( i ) {
-    var val = $(this).val();
-    var hiddenWorkTypes = "{{ $user_hidden_work_types }}";
-
-    if (hiddenWorkTypes.includes(val) ) {
-        $(this).bootstrapToggle('on');
-    } 
-    });
-    
     //Datatables
     $(function () {
         let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
@@ -226,8 +221,15 @@
         });
     });
 
+    //Toogle Switches
+    $('.switch-input').bootstrapToggle({
+        on: 'Off',
+        off: 'On',
+        onstyle: 'light',
+        offstyle: 'primary'
+        });
+
     // Create or Update Events via Ajax
-    
     $('#updateHiddenWorkTypes').submit(function (e) {
                 e.preventDefault();
                 

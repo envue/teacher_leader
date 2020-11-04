@@ -15,7 +15,6 @@ textarea {
 
 
 .datatable {
-    
     width: 100% !important;
 }
 
@@ -88,13 +87,6 @@ table.dataTable thead .sorting_desc {
     background: #eaeaea;
 }
 
-/*
-.select2-results__option {
-    padding-left: 0px;
-    padding-right: 0px;
-}
-*/
-
 .form-group .required::after {
     content: " *";
     color: red;
@@ -121,4 +113,9 @@ div.notification-dot {
     margin-top: 8px!important;
     top: 0px!important;
     left: -20px!important;
+}
+
+.bootstrap-switch { 
+    float:right; margin-left: 10px; 
+    margin-top: -5px; 
 }

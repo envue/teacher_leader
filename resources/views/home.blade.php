@@ -63,11 +63,11 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Card Title</h3>
+                <h3 class="card-title">Content Area Title</h3>
             </div>
 
             <div class="card-body">
-                
+                <p>Area for content</p>  
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Card Title</h3>     
+                <h3 class="card-title">Content Area Title</h3>     
             </div>
             <!-- 
             <div class="card-body p-0">
@@ -95,10 +95,6 @@
                 </ul>
             </div>
             .card-body -->
-            <div class="card-footer text-center">
-                <a href="javascript:void(0)" class="uppercase">View All Posts</a>
-            </div>
-            <!-- /.card-footer -->
         </div>
     </div>
 </div>

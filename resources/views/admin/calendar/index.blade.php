@@ -2,32 +2,19 @@
 @section('content')
 <!--<meta name="csrf-token" content="{{ csrf_token() }}">-->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css"/>
-<style type="text/css"> 
-    .bootstrap-switch { 
-        float:right; margin-left: 10px; 
-        margin-top: -5px; 
-    }
-    .fc-v-event {
-        background-color: --primary!important;
-        border-color: --primary!important;
-    }
-    .fc-v-event .fc-event-main {
-        color: #ffffff!important;
-    }
-</style>
+
 <div class="row">
     <div class="col-6">
         <h3 class="page-title">{{ trans('global.systemCalendar') }}</h3>
     </div>
     @can ('google_calendar_access')
     
-    <div id="google-calendar-options" class="col-6">
+    <div id="google-calendar-options" class="col-6" style="margin-bottom: 15px; margin-top: -5px;">
         @isset ($googleCalendarID)
-        <input id="google-calendar-toggle" style="float: right;" type="checkbox" data-toggle="switch" data-inverse="true">
-        <h5 class="float-right">Google Calendar</h5>
+        <input id="google-calendar-toggle" class="calendar-toggle float-right inline" data-toggle="toggle" type="checkbox"
+        data-on="Google Calendar On" data-off="Google Calendar Off" data-style="float-right">
         @else
-        <a class="btn btn-success float-right" style="margin-top: -5px;" href="{{ route('profile.password.edit') }}">
+        <a class="btn btn-success float-right inline" href="{{ route('profile.password.edit') }}">
             Connect Google Calendar
         </a>
         @endisset
@@ -35,7 +22,7 @@
     @endcan
 </div>
 <div class="card">
-    <div class="card-body">
+    <div class="card-body px-0 px-md-2">
         <div id='calendar'></div>
     </div>
 </div>
@@ -44,7 +31,7 @@
   <div class="modal-dialog" role="form">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="modelHeading"></h4>
+        <h4 class="modal-title" id="modalHeading"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
@@ -52,11 +39,11 @@
         <form id="eventForm" name="eventForm">
             <input type="hidden" name="event_id" id="event_id">
             <div class="row">
-                <div class="col-md-6 col-xs-12 form-group">
+                <div class="col-md-6 col-xs-6 form-group">
                     <label class="required" for="start_time">{{ trans('cruds.timeEntry.fields.start_time') }}</label>
                     <input data-date-format="MM/DD/YYYY hh:mm A" class="form-control datetime" type="text" name="start_time" id="start_time" value="{{ old('start_time') }}" required>
                 </div>
-                <div class="col-md-6 col-xs-12 form-group">
+                <div class="col-md-6 col-xs-6 form-group">
                     <label class="required" for="end_time">{{ trans('cruds.timeEntry.fields.end_time') }}</label>
                     <input data-date-format="MM/DD/YYYY hh:mm A" class="form-control datetime" type="text" name="end_time" id="end_time" value="{{ old('end_time') }}" required>
                 </div>
@@ -95,7 +82,7 @@
                 <input class="form-control" type="text" name="description" id="description" value="{{ old('description', '') }}" placeholder="Short description for this entry">
             </div>
             <div class="form-group">
-                <label for="notes">{{ trans('cruds.timeEntry.fields.notes') }}</label>
+                <label for="notes">Additional notes</label>
                 <textarea class="form-control" rows="3" name="notes" placeholder="Additional information for this entry." id="notes">{{ old('notes') }}</textarea>
             </div>
         </div>
@@ -125,26 +112,32 @@
 <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>-->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
 <script>
         
         $(document).ready(function(){
             
-            // Turn User Google Calendar On and Off
-            $('#google-calendar-toggle').bootstrapSwitch({
-                offColor: 'danger',
-                onSwitchChange: function(e, state) {
-                    if (state) {
-                        $('#calendar').fullCalendar( 'addEventSource', {
+            /*Google Calendar Toggle
+            $('#google-calendar-toggle').bootstrapToggle({
+                on: 'Google Calendar On',
+                off: 'Google Calendar Off',
+                offstyle: 'danger',
+                style: 'float-right'
+                
+            });*/
+            
+            $('#google-calendar-toggle').change(function(){
+                if($(this).is(':checked')) {
+                    // Checkbox is checked..
+                    $('#calendar').fullCalendar( 'addEventSource', {
                             googleCalendarId: '{{$googleCalendarID}}',
                             className: 'gcal-event',
                             color: '#e7e7e7',
                             borderColor: '#d2d6de',
                             textColor: '#333333',
                         }); 
-                    } else {
-                        $('#calendar').fullCalendar( 'removeEventSource', '{{$googleCalendarID}}' );
-                    }
+                } else {
+                    // Checkbox is not checked..
+                    $('#calendar').fullCalendar( 'removeEventSource', '{{$googleCalendarID}}' );
                 }
             });
 
@@ -202,7 +195,7 @@
                     
                     if (calEvent.work_type){
                         
-                        $('#modelHeading').html("Edit Entry");
+                        $('#modalHeading').html("Edit Entry");
                         $('#eventForm #work_type_id').val(calEvent.work_type).change();
                         $('#eventForm #population_type_id').val(calEvent.population_type).change();
                         $('#eventForm #caseload_type_id').val(calEvent.caseload_type).change();
@@ -215,7 +208,7 @@
 
                     else {
 
-                        $('#modelHeading').html("Copy Google Event");
+                        $('#modalHeading').html("Copy Google Event");
                         $('#eventForm #work_type_id').change();
                         $('#eventForm #population_type_id').change();
                         $('#eventForm #caseload_type_id').change();
@@ -275,7 +268,7 @@
                     var endDate = moment(end).format('MM/DD/YYYY hh:mm A');
                     
                     $('#eventForm').trigger("reset");
-                    $('#modelHeading').html("Create New Entry");
+                    $('#modalHeading').html("Create New Entry");
                     $('#event_id').val('');
                     $('#work_type_id').change();
                     $('#population_type_id').change();

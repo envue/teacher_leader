@@ -37,13 +37,17 @@
                         class="fas fa-bell"></i></a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link " title="Roadmap" href="https://app.productstash.io/roadmaps/5fa022670662250029f69c26/public" target="_blank"><i
+                        class="fas fa-map"></i></a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link " title="Help Docs" href="https://help.schoolsocialwork.net/collection/1-ssw-tools-beta-2-0" target="_blank"><i
                         class="fas fa-question-circle"></i></a>
                   </li>
                   <li class="nav-time dropdown" style="">
                       <a href="#" id="navbarDropdown" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{ Auth::user()->gravatar }}" class="img-circle user-avatar" alt="User Image">
-                        <span style="margin-right: 10px; margin-left: 5px;" class="hidden-xs">  {{ Auth::user()->name }}</span>
+                        <span id="user-name" style="margin-right: 10px; margin-left: 5px;" class="d-none d-sm-inline">  {{ Auth::user()->name }}</span>
                       </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="{{ route('profile.password.edit') }}">Account Settings</a>

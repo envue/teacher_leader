@@ -19,23 +19,22 @@ class TimeWorkTypeController extends Controller
     public function index(Request $request)
     {
         abort_if(Gate::denies('time_work_type_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $user = auth()->user();
-        //$system_work_types = TimeWorkType::where('system_value', '=', 1)->get();
-        
+    
         //Create an array of options with attributes
+        $user_hidden_work_types = explode(',', Auth::user()->hidden_work_types);
+        
         $system_work_types = TimeWorkType::where('system_value', '=', 1)->get()
-        ->mapWithKeys(function ($item) {
-                        return [$item->id => ['name' => $item->name, 'description' => $item->description, 'color' => $item->color, 'use_caseload_type' => $item->use_caseload_type, 'use_population_type' => $item->use_population_type]];
+        ->mapWithKeys(function ($item) use ($user_hidden_work_types) {
+                        return [$item->id => ['name' => $item->name, 'description' => $item->description, 'color' => $item->color, 'use_caseload_type' => ($item->use_caseload_type ? 'checked' : null), 
+                        'use_population_type' => ($item->use_population_type ? 'checked' : null), 'checked' => (in_array($item->id, $user_hidden_work_types) ? 'checked': null)]];
                     })->all();;
-        $user_hidden_work_types = $user->hidden_work_types;
 
         if ($request->ajax()) {
             
             if (auth()->user()->roles->contains(1)) { 
                 $query = TimeWorkType::with(['created_by'])->select(sprintf('%s.*', (new TimeWorkType)->table));
             } else {
-                $query = TimeWorkType::with(['created_by'])->where('created_by_id', '=', $user->id)->select(sprintf('%s.*', (new TimeWorkType)->table));
+                $query = TimeWorkType::with(['created_by'])->where('created_by_id', '=', Auth::user()->id)->select(sprintf('%s.*', (new TimeWorkType)->table));
             }
             
             $table = Datatables::of($query);
