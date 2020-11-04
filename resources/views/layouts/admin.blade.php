@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/b-1.6.5/b-colvis-1.6.5/b-flash-1.6.5/b-html5-1.6.5/r-2.2.6/sl-1.3.1/datatables.min.css"/>
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     @yield('styles')
 </head>
@@ -27,41 +28,13 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
                 </li>
-                <!--<li class="nav-item d-none d-sm-inline-block">
-                  <a href="https://schoolsocialwork.net" target="_blank" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                  <a href="https://schoolsocialworkers.mn.co" target="_blank" class="nav-link">Community</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                  <a href="https://newsletter.schoolsocialwork.net" target="_blank" class="nav-link">Newsletter</a>
-                </li>-->
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ route('admin.roadmap') }}">
-                    Roadmap
-                  </a>
-                </li>                
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Help
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="https://help.schoolsocialwork.net/collection/1-ssw-tools-beta-2-0" target="_blank">Help docs</a>
-                    <a class="dropdown-item" href="#" onclick="convertfox.chat('openNewConversation')">Message us</a>
-                  </div>
-                </li>
-              </ul>
+            </ul>
 
             <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
                   <li id="notifications-toggle" class="nav-item">
                     <a class="nav-link " title="Notifications" href="#" role="button"><i
                         class="fas fa-bell"></i></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" title="Message us" href="#" onclick="convertfox.chat('openNewConversation')"><i
-                        class="fas fa-comment"></i>
-                    </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link " title="Help Docs" href="https://help.schoolsocialwork.net/collection/1-ssw-tools-beta-2-0" target="_blank"><i
@@ -82,7 +55,7 @@
         </nav> 
 
         @include('partials.menu')
-        <div class="content-wrapper px-4 py-2" style="min-height: 917px;">
+        <div class="content-wrapper px-0 px-md-4 py-1 py-md-2" style="min-height: 917px;">
             <!-- Main content -->
             <section class="content" style="padding-top: 20px">
                 @if(session('message'))
@@ -91,7 +64,7 @@
                           <div class="alert alert-success alert-dismissible">
                             <button type="button" role="alert" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h5><i class="icon fas fa-check"></i> Success!</h5>
-                            {{ session('message') }}
+                            <p>{{ session('message') }}</p>
                           </div>
                         </div>
                     </div>
@@ -106,7 +79,6 @@
                           </div>
                         </div>
                     </div>
-                    
                 @endif
                 @if($errors->count() > 0)
                     <div class="alert alert-danger">
@@ -142,6 +114,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <script src="{{ asset('js/main.js') }}"></script>
     <script>

@@ -27,7 +27,7 @@
         <input id="google-calendar-toggle" style="float: right;" type="checkbox" data-toggle="switch" data-inverse="true">
         <h5 class="float-right">Google Calendar</h5>
         @else
-        <a class="btn btn-primary float-right" style="margin-top: -5px;" href="{{ route('profile.password.edit') }}">
+        <a class="btn btn-success float-right" style="margin-top: -5px;" href="{{ route('profile.password.edit') }}">
             Connect Google Calendar
         </a>
         @endisset
@@ -132,6 +132,7 @@
             
             // Turn User Google Calendar On and Off
             $('#google-calendar-toggle').bootstrapSwitch({
+                offColor: 'danger',
                 onSwitchChange: function(e, state) {
                     if (state) {
                         $('#calendar').fullCalendar( 'addEventSource', {
