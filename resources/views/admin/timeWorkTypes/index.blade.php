@@ -2,11 +2,9 @@
 @section('content')
 
 <div class="row">
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <h3>Work types</h3>
-        </div>
-    </div>
+    <div class="col-lg-12">
+        <h3 class="page-title">Work types</h3>
+    </div> 
 </div>
 
 <div class="row">
@@ -34,7 +32,7 @@
                             </div>
                             @can('time_work_type_create')
                             <div class="col-sm-4">
-                                <a class="btn btn-success btn-inline float-right" style="margin-top:10px;" href="{{ route('admin.time-work-types.create') }}">
+                                <a class="btn btn-success btn-inline float-left float-sm-right" style="margin-top:10px;" href="{{ route('admin.time-work-types.create') }}">
                                 + Add custom work type
                                 </a>
                             </div>
