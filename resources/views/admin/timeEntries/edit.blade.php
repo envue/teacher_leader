@@ -30,15 +30,17 @@
                 <label class="required" for="work_type_id">{{ trans('cruds.timeEntry.fields.work_type') }}</label>
                 <select class="form-control select2 {{ $errors->has('work_type') ? 'is-invalid' : '' }}" name="work_type_id" id="work_type_id" required>
                     @foreach($work_types as $id => $work_type)
-                        <option value="{{ $id }}" {{ (old('work_type_id') ? old('work_type_id') : $timeEntry->work_type->id ?? '') == $id ? 'selected' : '' }}>{{ $work_type }}</option>
+                        <option value="{{ $id }}" {{ (old('work_type_id') ? old('work_type_id') : $timeEntry->work_type->id ?? '') == $id ? 'selected' : '' }}
+                        title="{{ $work_type['description'] ?? " " }}" population="{{ $work_type['use_population_type'] }}" caseload="{{ $work_type['use_caseload_type'] }}">{{ $work_type['name'] }}</option>
                     @endforeach
+                    
                 </select>
                 @if($errors->has('work_type'))
                     <span class="text-danger">{{ $errors->first('work_type') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.timeEntry.fields.work_type_helper') }}</span>
             </div>
-            <div class="form-group">
+            <div id="population_type_field"class="form-group">
                 <label for="population_type_id">{{ trans('cruds.timeEntry.fields.population_type') }}</label>
                 <select class="form-control select2 {{ $errors->has('population_type') ? 'is-invalid' : '' }}" name="population_type_id" id="population_type_id">
                     @foreach($population_types as $id => $population_type)
@@ -50,7 +52,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.timeEntry.fields.population_type_helper') }}</span>
             </div>
-            <div class="form-group">
+            <div id="caseload_type_field" class="form-group">
                 <label for="caseload_type_id">{{ trans('cruds.timeEntry.fields.caseload_type') }}</label>
                 <select class="form-control select2 {{ $errors->has('caseload_type') ? 'is-invalid' : '' }}" name="caseload_type_id" id="caseload_type_id">
                     @foreach($caseload_types as $id => $caseload_type)
@@ -86,7 +88,27 @@
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+//Conditionally show/hide fields based on work type options
+            $("#work_type_id").change(function () {
+             var caseload = $('option:selected', this).attr('caseload');
+             var population =$('option:selected', this).attr('population');
 
-
-
+                if (caseload == 1) {
+                    $('#caseload_type_field').show();
+                } else {
+                    $('#caseload_type_field').hide();
+                    $('#caseload_type_id').val('').trigger('change');
+                }
+                if (population == 1) {
+                    $('#population_type_field').show();
+                } else {
+                    $('#population_type_field').hide();
+                    $('#population_type_id').val('').trigger('change')
+                };
+                
+            })
+</script>
 @endsection

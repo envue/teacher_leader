@@ -3,13 +3,13 @@
 <!--<meta name="csrf-token" content="{{ csrf_token() }}">-->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' />
 
-<div class="row">
+<div class="row mb-3">
     <div class="col-6">
         <h3 class="page-title">{{ trans('global.systemCalendar') }}</h3>
     </div>
     @can ('google_calendar_access')
     
-    <div id="google-calendar-options" class="col-6" style="margin-bottom: 15px; margin-top: -5px;">
+    <div id="google-calendar-options" class="col-6" style="margin-top: -5px;">
         @isset ($googleCalendarID)
         <input id="google-calendar-toggle" class="calendar-toggle float-right inline" data-toggle="toggle" type="checkbox"
         data-on="Google Calendar On" data-off="Google Calendar Off" data-style="float-right">
@@ -109,22 +109,12 @@
 
 @section('scripts')
 @parent
-<!--<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js'></script>-->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js"></script>
 <script>
         
         $(document).ready(function(){
-            
-            /*Google Calendar Toggle
-            $('#google-calendar-toggle').bootstrapToggle({
-                on: 'Google Calendar On',
-                off: 'Google Calendar Off',
-                offstyle: 'danger',
-                style: 'float-right'
-                
-            });*/
-            
+            //Google Calendar Toggle          
             $('#google-calendar-toggle').change(function(){
                 if($(this).is(':checked')) {
                     // Checkbox is checked..
@@ -141,7 +131,7 @@
                 }
             });
 
-            //Placeholder for work-type field
+            //Placeholder for work-type on select2 field
             $("#work_type_id").select2({
                 placeholder: "Please select",
                 allowClear: true

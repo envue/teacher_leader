@@ -34,7 +34,7 @@ table.dataTable tbody th.select-checkbox::after {
 }
 
 .dt-buttons .btn {
-    margin-left: 0.333em;
+    margin-left: 0.333em!important;
     border-radius: 0;
 }
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <!-- Info Boxes -->
-<div class="row">
+<div class="row mb-3">
     <div class="col-lg-12">
         <h3 class="page-title">Dashboard</h3>
     </div>  

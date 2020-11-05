@@ -12,6 +12,7 @@ use App\Models\TimePopulationType;
 use App\Models\TimeWorkType;
 use App\Models\User;
 use Gate;
+use Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -69,7 +70,7 @@ class TimeEntryController extends Controller
 
             return $table->make(true);
         }
-
+              
         $time_work_types       = TimeWorkType::get();
         $time_population_types = TimePopulationType::get();
         $time_caseload_types   = TimeCaseloadType::get();
@@ -102,7 +103,13 @@ class TimeEntryController extends Controller
     {
         abort_if(Gate::denies('time_entry_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $work_types = TimeWorkType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $hidden_work_types = explode(',', Auth::user()->hidden_work_types);
+
+        //Create an array of options with attributes
+        $work_types = TimeWorkType::whereNotIn('id', $hidden_work_types)->get()
+        ->mapWithKeys(function ($item) {
+                        return [$item->id => ['name' => $item->name, 'title' => $item->description, 'use_caseload_type' => $item->use_caseload_type, 'use_population_type' => $item->use_population_type]];
+                    })->all();
 
         $population_types = TimePopulationType::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 

@@ -1,21 +1,17 @@
 @extends('layouts.admin')
 @section('content')
-@can('time_entry_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.system-calendar.index') }}">
-                {{ trans('global.add') }} {{ trans('cruds.timeEntry.title_singular') }}
-            </a>
-        </div>
+<div class="row mb-3">
+    <div class="col-12">
+        <h3 class="page-title">Time entries</h3>
     </div>
-@endcan
+</div>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
-            <div class="card-header">
+        <div class="card-header">
                 {{ trans('cruds.timeEntry.title_singular') }} {{ trans('global.list') }}
-            </div>
-
+            </div>   
             <div class="card-body">
                 <table id="Table" class="table table-bordered table-striped table-hover ajaxTable datatable datatable-TimeEntry">
                     <thead>

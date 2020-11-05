@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('content')
 
-<div class="row">
-    <div class="col-lg-12">
+<div class="row mb-3">
+    <div class="col-12">
         <h3 class="page-title">Work types</h3>
     </div> 
 </div>
@@ -39,7 +39,7 @@
                             @endcan
                         </div>
                         @can('user_edit')
-                        <div style="border-bottom:1px solid #ccc; margin-bottom: 20px;"></div>
+                        <div class="py-2" style="border-bottom:1px solid #cccccc; margin-bottom: 20px;"></div>
                         @endcan
                         <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-TimeWorkType">
                             <thead>
@@ -62,10 +62,10 @@
                                         {{ trans('cruds.timeWorkType.fields.color') }}
                                     </th>
                                     <th>
-                                        Use Pop
+                                        Uses Pop Type
                                     </th>
                                     <th>
-                                        Use Case
+                                        Uses Case Type
                                     </th>
                                     @can('user_edit')
                                     <th>
@@ -80,7 +80,7 @@
                         </table>                        
                     </div>
                     <div class="tab-pane" id="system-work-types">
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="col-lg-12">                                
                                 <h5 class="font-weight-bold">System work types <br>
                                     <small class="text-muted">Show or hide the default system work types on forms and report filters. 
@@ -98,8 +98,8 @@
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Color</th>
-                                            <th>Uses Pop</th>
-                                            <th>Uses Case</th>
+                                            <th>Uses Pop Type</th>
+                                            <th>Uses Case Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -119,10 +119,10 @@
                                                 <h5><span style="background-color:{{ $system_work_type['color'] }}; color: #ffffff;" class="badge">  {{ $system_work_type['color'] }}  </span></h5>
                                             </td>
                                             <td> 
-                                                <input type="checkbox" style="pointer-events: none;" {{ $system_work_type['use_population_type'] }}>
+                                                <input type="checkbox" style="pointer-events: none;" {{ $system_work_type['use_population_type'] }} disabled>
                                             </td>
                                             <td> 
-                                                <input type="checkbox" style="pointer-events: none;" {{ $system_work_type['use_caseload_type'] }}>
+                                                <input type="checkbox" style="pointer-events: none;" {{ $system_work_type['use_caseload_type'] }} disabled>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -183,7 +183,7 @@
         let dtOverrideGlobals = {
             dom:
                 @can('user_edit')
-                "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+                "<'row'<'col-xl-2 col-md-3'l><'col-xl-7 col-md-9 text-center'B><'col-md-3'f>>" +
                 @endcan
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-4'i><'col-sm-8'p>>", 

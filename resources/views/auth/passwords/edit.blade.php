@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
-<div class="row">
-    <div class="col-6">
+<div class="row mb-3">
+    <div class="col-12">
         <h3 class="page-title">Account settings</h3>
     </div>
 </div>
@@ -79,6 +79,9 @@
                 Google Calendar Integration
             </div>
             <div class="card-body">
+                <p>To connect your Google Calendar to SSW Tools you'll need to make your calendar public and provide your calendar ID in the field below. 
+                    <a href="https://help.schoolsocialwork.net/article/1-connecting-google-calendar" target="_blank">Read our help doc for instructions.</a>
+                </p>
                 <form method="POST" action="{{ route("profile.password.updateGoogleCalendarId") }}">
                     @csrf
                     

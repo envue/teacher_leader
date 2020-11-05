@@ -165,7 +165,7 @@
     pageLength: 100,
     dom: 'lBfrtip<"actions">',
     dom:
-			"<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+			"<'row'<'col-xl-2 col-md-3'l><'col-xl-7 col-md-9 text-center'B><'col-md-3'f>>" +
 			"<'row'<'col-sm-12'tr>>" +
 			"<'row'<'col-sm-4'i><'col-sm-8'p>>", 
     buttons: [

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<div class="row">
+<div class="row mb-3">
     <div class="col-12">
         <h3 class="page-title">Time report</h3>
     </div>
@@ -62,7 +62,7 @@
 <br>
       
 <div class = "row">
-    <div class = "col-12 col-lg-8">
+    <div class = "col-12 col-xl-8">
         <div class="card card-default">
             <div class="card-header with-border">
                 <h3 class="card-title">Time by Work Type</h3>
@@ -71,12 +71,13 @@
                 <!-- Here is a label for example -->
                 <!-- <span class="label label-primary">Label</span> -->
                 </div>
-                <!-- /.box-tools -->
+                <!-- /.card-tools -->
             </div>
-            <!-- /.box-header -->
+            <!-- /.card-header -->
             <div class="card-body">
                 <canvas id="worktypeChart"> </canvas>
-                <br>
+            </div>
+            <div class="card-footer bg-white top-border-none">
                 <table class="table table-bordered table-striped">
                     <tr>
                         <th>Work type</th>
@@ -85,18 +86,18 @@
                     </tr>
                     @foreach($work_type_time as $work_type)
                     <tr>
-                        <th>{{ $work_type['name'] }}</th>
+                        <td>{{ $work_type['name'] }}</td>
                         <td>{{ $work_type['time'] }}</td>
                         <td>{{ number_format( $work_type['time'] / $workTypeMinutes * 100, 2 ) . '%' }}</td>
                     </tr>
                     @endforeach
                 </table>
             </div>
-            <!-- box-footer -->
+            
         </div>
-        <!-- /.box -->
+        <!-- /.card -->
     </div>
-    <div class = "col-12 col-lg-4 col-md-6">
+    <div class = "col-12 col-xl-4 col-md-6">
         <div class="card">
             <div class="card-header with-border">
                 <h3 class="card-title">Time by Population</h3>
@@ -105,12 +106,13 @@
                 <!-- Here is a label for example -->
                 <!-- <span class="label label-primary">Label</span> -->
                 </div>
-                <!-- /.box-tools -->
+                <!-- /.card-tools -->
             </div>
-            <!-- /.box-header -->
+            <!-- /.card-header -->
             <div class="card-body">
                 <canvas id="populationChart"> </canvas>
-                <br>
+            </div>
+            <div class="card-footer bg-white top-border-none">
                 <table id="projecttable" class="table table-bordered table-striped">
                         <tr>
                             <th>Population type</th>
@@ -119,16 +121,15 @@
                         </tr>
                         @foreach($population_type_time as $population_type)
                     <tr>
-                        <th>{{ $population_type['name'] }}</th>
+                        <td>{{ $population_type['name'] }}</td>
                         <td>{{ $population_type['time'] }}</td>
                         <td>{{ number_format( $population_type['time'] / $populationTypeMinutes * 100, 2 ) . '%' }}</td>
                     </tr>
                     @endforeach
                 </table>
             </div>
-            <!-- box-footer -->
         </div>
-        <!-- /.box -->
+        <!-- /.card -->
         <div class="card">
             <div class="card-header with-border">
                 <h3 class="card-title">Caseload vs. Non-Caseload</h3>
@@ -137,12 +138,13 @@
                 <!-- Here is a label for example -->
                 <!-- <span class="label label-primary">Label</span> -->
                 </div>
-                <!-- /.box-tools -->
+                <!-- /.card-tools -->
             </div>
-            <!-- /.box-header -->
+            <!-- /.card-header -->
             <div class="card-body">
                 <canvas id="caseloadChart"> </canvas>
-                <br>
+            </div>
+            <div class="card-footer bg-white top-border-none">
                 <table id="projecttable" class="table table-bordered table-striped">
                         <tr>
                             <th>Caseload type</th>
@@ -151,16 +153,15 @@
                         </tr>
                         @foreach($caseload_type_time as $caseload)
                     <tr>
-                        <th>{{ $caseload['name'] }}</th>
+                        <td>{{ $caseload['name'] }}</td>
                         <td>{{ $caseload['time'] }}</td>
                         <td>{{ number_format( $caseload['time'] / $caseloadTypeMinutes * 100, 2 ) . '%' }}</td>
                     </tr>
                     @endforeach
                 </table>
             </div>
-            <!-- box-footer -->
         </div>
-        <!-- /.box -->
+        <!-- /.card -->
     </div>
 </div>
 @stop
@@ -170,6 +171,7 @@
 
     <!-- Include Required Prerequisites -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>-->
     <!-- Include Date Range Picker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
