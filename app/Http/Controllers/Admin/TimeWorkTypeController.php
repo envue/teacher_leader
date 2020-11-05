@@ -76,14 +76,14 @@ class TimeWorkTypeController extends Controller
                 return '<span style="background-color:'.($row->color).'; color: #ffffff;" class="badge">'.($row->color).'</span>';
             });
             $table->editColumn('use_population_type', function ($row) {
-                return '<input type="checkbox" style="pointer-events: none;" ' . ($row->use_population_type ? 'checked' : null) . '>';
+                return '<input type="checkbox" style="pointer-events: none;" ' . ($row->use_population_type ? 'checked' : null) . ' disabled >';
             });
             $table->editColumn('use_caseload_type', function ($row) {
-                return '<input type="checkbox" style="pointer-events: none;" ' . ($row->use_caseload_type ? 'checked' : null) . '>';
+                return '<input type="checkbox" style="pointer-events: none;" ' . ($row->use_caseload_type ? 'checked' : null) . ' disabled >';
             });
 
             $table->editColumn('system_value', function ($row) {
-                return '<input type="checkbox" style="pointer-events: none;"  ' . ($row->system_value ? 'checked' : null) . '>';
+                return '<input type="checkbox" style="pointer-events: none;"  ' . ($row->system_value ? 'checked' : null) . ' disabled >';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'use_population_type', 'use_caseload_type', 'system_value', 'color']);
