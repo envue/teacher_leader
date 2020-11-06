@@ -75,7 +75,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <canvas id="worktypeChart"> </canvas>
+                <canvas id="worktypeChart"></canvas>
             </div>
             <div class="card-footer bg-white top-border-none">
                 <table class="table table-bordered table-striped">
@@ -235,7 +235,7 @@
         var caseloadTypeData = {!! json_encode($caseloadTypeData)  !!};
         
         var ctx = document.getElementById("worktypeChart").getContext('2d');
-        var populationChart = new Chart(ctx, {
+        var worktypeChart = new Chart(ctx, {
             type: 'horizontalBar',
             data: {
                 labels: workTypeLabels,
