@@ -99,10 +99,7 @@
         </div>
 
         <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 2.0-beta
-            </div>
-            <strong> &copy;</strong> School Social Work Net {{ trans('global.allRightsReserved') }}
+            <strong> &copy;</strong> School Social Work Net {{ trans('global.allRightsReserved') }}. Version 2.0-beta.
         </footer>
         <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
@@ -270,6 +267,31 @@
     </script>
 
     @yield('scripts')
+
+  <script>
+  //check if page has a chart and displays message if there is no chart data
+  if (typeof ctx !== 'undefined') {
+    
+    Chart.plugins.register({
+        afterDraw: function(chart) {
+            if (chart.data.datasets[0].data.every(item => item === 0)) {
+                let ctx = chart.chart.ctx;
+                let width = chart.chart.width;
+                let height = chart.chart.height;
+
+                chart.clear();
+                ctx.save();
+                ctx.font = "18px Source Sans Pro";
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('No data to display', width / 2, height / 2);
+                ctx.restore();
+            }
+        }
+    });
+  }
+  </script>
+
 </body>
 
 </html>
