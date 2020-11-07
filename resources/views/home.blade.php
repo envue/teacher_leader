@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 @section('content')
+@php
+        $articles = simplexml_load_file('https://schoolsocialwork.net/feed/');   
+@endphp
+
 <!-- Page Header -->
 <div class="row mb-3">
     <div class="col-lg-12">
@@ -20,7 +24,7 @@
             <div class="icon">
                 <i class="fa fa-calendar"></i>
             </div>
-            <a href="{{ route('admin.system-calendar.index') }}" class="small-box-footer">View Calendar <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.system-calendar.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-md-3 col-6">
@@ -34,7 +38,7 @@
             <div class="icon">
                 <i class="fa fa-clock"></i>
             </div>
-            <a href="{{ route('admin.time-entries.index') }}" class="small-box-footer">View Entries <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.time-entries.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-md-3 col-6">
@@ -48,7 +52,7 @@
             <div class="icon">
                 <i class="fa fa-briefcase"></i>
             </div>
-            <a href="{{ route('admin.time-work-types.index') }}" class="small-box-footer">View Work Types<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.time-work-types.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
          </div>
     </div>
     <div class="col-md-3 col-6">
@@ -63,7 +67,7 @@
             <div class="icon">
                 <i class="fa fa-chart-line"></i>
             </div>
-            <a href="{{ route('admin.time-reports.index') }}" class="small-box-footer">View Report<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ route('admin.time-reports.index') }}" class="small-box-footer">View <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>
@@ -72,7 +76,7 @@
     <div class="col-lg-6 col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Daily Minutes ({{ $carbon_date_from->format('m/d/y') }} - {{ $carbon_date_to->format('m/d/y') }})</h3>     
+                <h3 class="card-title">Daily Minutes <small class="text-muted float-right">({{ $carbon_date_from->format('m/d/y') }} - {{ $carbon_date_to->format('m/d/y') }})</small></h3>     
             </div>
             <div class="card-body">
                     <canvas id="dailyTimeChart"></canvas>
@@ -99,7 +103,7 @@
     <div class="col-lg-6 col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Work Type Minutes ({{ $carbon_date_from->format('m/d/y') }} - {{ $carbon_date_to->format('m/d/y') }})</h3>     
+                <h3 class="card-title">Work Type Minutes <small class="text-muted float-right">({{ $carbon_date_from->format('m/d/y') }} - {{ $carbon_date_to->format('m/d/y') }})</small></h3>     
             </div>
             <div class="card-body">
                 <canvas id="worktypeChart"></canvas>
@@ -123,6 +127,109 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+<div class = "col-lg-6 col-12">
+        <div class="card">
+        <div class="card-header bg-dard">
+            <h3 class="card-title">Helpful Resources</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <ul class="products-list product-list-in-card pl-2 pr-2"> 
+            <li class="item">
+                <div class="product-img">
+                    <i class="fa fa-file-invoice fa-2x bg-primary p-3 white-text rounded"></i>
+                </div>
+                <div class="product-info pl-4">
+                <a href="https://schoolsocialwork.net/how-school-social-workers-can-use-a-time-study-to-enhance-their-effectiveness/" class="product-title" target="_blank" >
+                How School Social Workers Can Use a Time Student to Enhance Their Effectivness</a><br>
+                <span class="text-muted description">
+                Our step-by-step process for conducting a successful time-study and using the data to advocate for your role.
+                </span>
+                </div>
+            </li>
+            <!-- /.item -->
+            <li class="item">
+                <div class="product-img">
+                    <i class="fa fa-file fa-2x bg-secondary p-3 white-text rounded"></i>
+                </div>
+                <div class="product-info pl-4">
+                <a href="#" class="product-title" target="_blank" >
+                Resource # 2</a><br>
+                <span class="text-muted description">
+                A description of this resource.
+                </span>
+                </div>
+            </li>
+            <li class="item">
+                <div class="product-img">
+                    <i class="fa fa-file-alt fa-2x bg-info p-3 white-text rounded"></i>
+                </div>
+                <div class="product-info pl-4">
+                <a href="#" class="product-title" target="_blank" >
+                Resource # 2</a><br>
+                <span class="text-muted description">
+                A description of this resource.
+                </span>
+                </div>
+            </li>
+            <li class="item">
+                <div class="product-img">
+                    <i class="fa fa-file-video fa-2x bg-danger p-3 white-text rounded"></i>
+                </div>
+                <div class="product-info pl-4">
+                <a href="#" class="product-title" target="_blank" >
+                Video Resource</a><br>
+                <span class="text-muted description">
+                A description of this resource.
+                </span>
+                </div>
+            </li>
+            <!-- /.item -->
+            </ul>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box --> 
+    </div>
+    <!-- /. Column -->
+    <div class = "col-lg-6 col-12">
+        <div class="card">
+        <div class="card-header bg-dard">
+            <h3 class="card-title">Latest Blog Posts</h3>
+            <div class="card-tools">
+                <!-- Buttons, labels, and many other things can be placed here! -->
+                <a class="btn btn-tool text-muted" href="https://schoolsocialwork.net" target="_blank">View All</a>
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <ul class="products-list product-list-in-card pl-2 pr-2">
+            @foreach($articles->channel->item as $item) 
+            <li class="item">
+                <div class="product-img">
+                    <img src="{{$item->children( 'media', True )->content->attributes()['url']}}" alt="Product Image">
+                </div>
+                <div class="product-info">
+                <a href="{{$item->link}}" class="product-title" target="_blank" >{{$item->title}}</a>
+                <span class="product-description">
+                        {{html_entity_decode($item->description)}}
+                </span>
+                </div>
+            </li>
+            <!-- /.item -->
+            @endforeach
+            </ul>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box --> 
+    </div>
+    <!-- /. Column -->
+</div>
+<!-- /.row -->
 @endsection
 @section('scripts')
 @parent
@@ -202,7 +309,9 @@
                     fill: 'false',
                     data: dailyTimeData,
                     borderColor: '#007bff',
-                    borderWidth: 2
+                    backgroundColor: '#007bff',
+                    borderWidth: 2,
+                    pointBorderWidth: 4,
                 }]
             },
             options: { 

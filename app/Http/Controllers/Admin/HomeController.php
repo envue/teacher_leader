@@ -10,6 +10,8 @@ class HomeController
 {
     public function index()
     {
+        //$articles = simplexml_load_file('https://schoolsocialwork.net/feed/'); 
+        
         $carbon_date_from = new Carbon('last Monday');
         $from = $carbon_date_from->startOfDay();
         $carbon_date_to = new Carbon('this Sunday');
