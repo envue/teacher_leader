@@ -10,8 +10,8 @@
 <div class="row">
     <div class="col-lg-12">
     <div class="card">
-              <div class="card-header">             
-                <ul class="nav nav-pills ml-auto">
+              <div class="card-header bg-light">             
+                <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="#custom-work-types" data-toggle="tab">Custom Work Types</a>
                 </li>
@@ -41,7 +41,7 @@
                         @can('user_edit')
                         <div class="py-2" style="border-bottom:1px solid #cccccc; margin-bottom: 20px;"></div>
                         @endcan
-                        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-TimeWorkType">
+                        <table class="table table-bordered table-striped table-hover ajaxTable datatable datatable-TimeWorkType">
                             <thead>
                                 <tr>
                                     <th width="10">
@@ -61,12 +61,8 @@
                                     <th>
                                         {{ trans('cruds.timeWorkType.fields.color') }}
                                     </th>
-                                    <th>
-                                        Uses Pop Type
-                                    </th>
-                                    <th>
-                                        Uses Case Type
-                                    </th>
+                                    <th class="text-nowrap">Pop Type</th>
+                                    <th class="text-nowrap">Case Type</th>
                                     @can('user_edit')
                                     <th>
                                         System
@@ -98,8 +94,8 @@
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Color</th>
-                                            <th>Uses Pop Type</th>
-                                            <th>Uses Case Type</th>
+                                            <th class="text-nowrap">Pop Type</th>
+                                            <th class="text-nowrap">Case Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -201,8 +197,8 @@
                 { data: 'name', name: 'name', className: 'text-nowrap' },
                 { data: 'description', name: 'description' },
                 { data: 'color', name: 'color' },
-                { data: 'use_population_type', name: 'use_population_type' },
-                { data: 'use_caseload_type', name: 'use_caseload_type' },
+                { data: 'use_population_type', name: 'use_population_type'},
+                { data: 'use_caseload_type', name: 'use_caseload_type'},
                 @can('user_edit')
                 { data: 'system_value', name: 'system_value' },
                 @endcan
@@ -215,9 +211,12 @@
         let table = $('.datatable-TimeWorkType').DataTable(dtOverrideGlobals);
         $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
             $($.fn.dataTable.tables(true)).DataTable()
-                .columns.adjust();
+                .columns.adjust()
+                .responsive.recalc();
         });
     });
+
+    
 
     //Toogle Switches
     $('.switch-input').bootstrapToggle({

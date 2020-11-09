@@ -14,7 +14,7 @@ textarea {
 */
 
 
-.datatable {
+.dataTables_scrollHeadInner, .datatable {
     width: 100% !important;
 }
 
