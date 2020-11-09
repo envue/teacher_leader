@@ -198,7 +198,7 @@
                 endDate: end,
                 locale: {
                     format: 'MM/DD/YY',
-                    firstDay: 1,
+                    firstDay: 0,
                 },
                 ranges: {
                     'Today': [moment(), moment()],
@@ -371,5 +371,4 @@
             },
         });
     </script>
-    
 @endsection

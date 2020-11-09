@@ -12,9 +12,9 @@ class HomeController
     {
         //$articles = simplexml_load_file('https://schoolsocialwork.net/feed/'); 
         
-        $carbon_date_from = new Carbon('last Monday');
+        $carbon_date_from = new Carbon('last Sunday', 'America/Chicago');
         $from = $carbon_date_from->startOfDay();
-        $carbon_date_to = new Carbon('this Sunday');
+        $carbon_date_to = new Carbon('this Saturday', 'America/Chicago');
         $to = $carbon_date_to->endOfDay();
 
         $time_entries = TimeEntry::whereBetween('start_time', [$from, $to])->get();
@@ -27,9 +27,9 @@ class HomeController
         $daily_time = [];
         
         foreach ($time_entries as $time_entry) {
-            $begin = Carbon::parse($time_entry->start_time, 'Europe/Vilnius');
-            $end   = Carbon::parse($time_entry->end_time, 'Europe/Vilnius');
-            $day = $begin->format('m/d');
+            $begin = Carbon::parse($time_entry->start_time, 'America/Chicago');
+            $end   = Carbon::parse($time_entry->end_time, 'America/Chicago');
+            $day = $begin->format('m/d/y');
             $diff = $begin->diffInMinutes($end);
             $time_entries_total_minutes+= $diff;
             if (!isset($work_type_time[$time_entry->work_type->id])) {
@@ -54,6 +54,8 @@ class HomeController
         }
 
         ksort($daily_time);
+
+        $todays_total_minutes = $daily_time[Carbon::now()->format('m/d/y')]['time'] ?? 0;
         
 
         // Chart data
@@ -65,6 +67,6 @@ class HomeController
 
         
 
-        return view('home', compact('dailyTimeLabels', 'dailyTimeData','carbon_date_from', 'carbon_date_to','time_entries_count', 'time_entries_total_minutes','workTypeLabels','workTypeData','workTypeColors'));
+        return view('home', compact('dailyTimeLabels', 'dailyTimeData','carbon_date_from', 'carbon_date_to','time_entries_count','todays_total_minutes', 'time_entries_total_minutes','workTypeLabels','workTypeData','workTypeColors'));
     }
 }

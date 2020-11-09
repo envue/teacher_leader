@@ -18,8 +18,6 @@ class TimeReportController extends Controller
         }
         $users = \App\Models\User::get()->pluck('name', 'id')->prepend('All users','');
 
-        //$userId = $r->query('user_id');
-
         $work_types = \App\Models\TimeWorkType::get()->pluck('name', 'id')->prepend('All types','');
         $population_types = \App\Models\TimePopulationType::get()->pluck('name', 'id')->prepend('All types','');
         $caseload_types = \App\Models\TimeCaseloadType::get()->pluck('name', 'id')->prepend('All types','');
@@ -35,8 +33,7 @@ class TimeReportController extends Controller
             $to = $carbon_date_to->endOfDay();
         }
         
-        $time_entries = TimeEntry::with('work_type','population_type','caseload_type')
-        ->whereBetween('start_time', [$from, $to]);
+        $time_entries = TimeEntry::with('work_type','population_type','caseload_type')->whereBetween('start_time', [$from, $to]);
 
         /*
         if (!empty($r->user_id)) {
@@ -56,14 +53,13 @@ class TimeReportController extends Controller
             $time_entries->where('population_type_id', '=', $r->population_type_filter);
         }
     
-
         $time_entries_work_type = $time_entries->whereNotNull('work_type_id')->get();
 
         $work_type_time = [];
         
         foreach ($time_entries_work_type as $time_entry) {
-            $begin = Carbon::parse($time_entry->start_time, 'Europe/Vilnius');
-            $end   = Carbon::parse($time_entry->end_time, 'Europe/Vilnius');
+            $begin = Carbon::parse($time_entry->start_time, 'America/Chicago');
+            $end   = Carbon::parse($time_entry->end_time, 'America/Chicago');
             $diff  = $begin->diffInMinutes($end);
             if (!isset($work_type_time[$time_entry->work_type->id])) {
                 $work_type_time[$time_entry->work_type->id] = [
@@ -76,11 +72,7 @@ class TimeReportController extends Controller
             }            
         }
 
-        
-        $time_entries_populations = $time_entries
-            ->whereNotNull ('population_type_id')
-            ->where('population_type_id', '!=' , '0')
-            ->get();
+        $time_entries_populations = $time_entries->whereNotNull ('population_type_id')->get();
         
         $population_type_time = [];
         
@@ -88,6 +80,8 @@ class TimeReportController extends Controller
             $begin = Carbon::parse($time_entry->start_time, 'Europe/Vilnius');
             $end   = Carbon::parse($time_entry->end_time, 'Europe/Vilnius');
             $diff  = $begin->diffInMinutes($end);
+
+            
             if (!isset($population_type_time[$time_entry->population_type->id])) {
                 $population_type_time[$time_entry->population_type->id] = [
                     'name' => $time_entry->population_type->name,
@@ -98,10 +92,7 @@ class TimeReportController extends Controller
             }            
         }
 
-        $time_entries_caseload = $time_entries
-            ->whereNotNull ('caseload_type_id')
-            ->where('caseload_type_id', '!=' , '0')
-            ->get();
+        $time_entries_caseload = $time_entries->whereNotNull ('caseload_type_id')->get();
         
         $caseload_type_time = [];
         
@@ -120,14 +111,11 @@ class TimeReportController extends Controller
         }
 
         // Chart data
-        
         $workTypeLabels = array_column($work_type_time, 'name');
         $workTypeData = array_column($work_type_time, 'time');
         $workTypeColors = array_column($work_type_time, 'color');
-
         $populationTypeLabels = array_column($population_type_time, 'name');
         $populationTypeData = array_column($population_type_time, 'time');
-
         $caseloadTypeLabels = array_column($caseload_type_time, 'name');
         $caseloadTypeData = array_column($caseload_type_time, 'time');
 
@@ -138,27 +126,23 @@ class TimeReportController extends Controller
 
         return view('admin.timeReports.index', compact(
             'users',
-            
             'population_types', //list of types for form
             'population_type_time', //array of both time and types
             'populationTypeData', //array of total minutes by types
             'populationTypeLabels', //array of types for chart labels
             'populationTypeMinutes', //array of minutes for table
-            
             'caseload_types', //list of caseload types for form
             'caseload_type_time',
             'caseloadTypeData',
             'caseloadTypeData',
             'caseloadTypeLabels',
             'caseloadTypeMinutes',
-            
             'work_types',     
             'work_type_time',
             'workTypeData',
             'workTypeLabels',          
             'workTypeMinutes',
-            'workTypeColors',
-            
+            'workTypeColors'
         ));
     }
 }

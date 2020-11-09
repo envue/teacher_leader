@@ -73,6 +73,50 @@
 </div>
 
 <div class="row">
+    <div class="col-sm-6 col-12">
+    <div class="info-box">
+        <span class="info-box-icon bg-primary"><i class="fas fa-calendar-day"></i></span>
+
+        <div class="info-box-content">
+        <span class="info-box-text">Today</span>
+        <span class="info-box-number">{{$todays_total_minutes}} minutes recorded</span>
+
+        <div class="progress" style="height: 4px;">
+            <div class="progress-bar" role="progressbar" style="background-color: #007bff!important; width: {{ number_format( $todays_total_minutes / 336 * 100, 0 ) . '%' }};"></div>
+        </div>
+        <span class="progress-description">
+        {{ number_format( $todays_total_minutes / 336 * 100, 0 ) . '%' }} of daily goal of 336 minutes
+        </span>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-sm-6 col-12">
+    <div class="info-box">
+        <span class="info-box-icon" style="background-color: #6610f2; color: #fff"><i class="fas fa-calendar-week"></i></span>
+
+        <div class="info-box-content">
+        <span class="info-box-text">This Week ({{ $carbon_date_from->format('m/d/y') }} - {{ $carbon_date_to->format('m/d/y') }})</span>
+        <span class="info-box-number">{{ $time_entries_total_minutes }} minutes recorded</span>
+
+        <div class="progress" style="height: 4px;">
+            <div class="progress-bar" style="background-color: #6610f2; width: {{ number_format( $time_entries_total_minutes / 1680 * 100, 0 ) . '%' }};"></div>
+        </div>
+        <span class="progress-description">
+        {{ number_format( $time_entries_total_minutes / 1680 * 100, 0 ) . '%' }} of weekly goal of 1680 minutes
+        </span>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+    </div>
+</div>
+
+
+<!-- Charts Row -->
+<div class="row">
     <div class="col-lg-6 col-12">
         <div class="card">
             <div class="card-header">
@@ -81,22 +125,6 @@
             <div class="card-body">
                     <canvas id="dailyTimeChart"></canvas>
             </div>
-            <!--<div class="card-footer">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="description-block border-right">
-                      <h3 class="description-header">{{ $time_entries_count }}</h3>
-                      <span class="description-text">Number of Entries</span>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="description-block">
-                      <h3 class="description-header">{{ $time_entries_total_minutes }}</h3>
-                      <span class="description-text">Total Minutes</span>
-                    </div>
-                  </div>
-                </div>
-            </div> -->
         </div>
     </div>
 
@@ -108,22 +136,6 @@
             <div class="card-body">
                 <canvas id="worktypeChart"></canvas>
             </div>
-           <!-- <div class="card-footer">
-                <div class="row">
-                  <div class="col-6">
-                    <div class="description-block border-right">
-                      <h3 class="description-header">{{ $time_entries_count }}</h3>
-                      <span class="description-text">Number of Entries</span>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="description-block">
-                      <h3 class="description-header">{{ $time_entries_total_minutes }}</h3>
-                      <span class="description-text">Total Minutes</span>
-                    </div>
-                  </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
