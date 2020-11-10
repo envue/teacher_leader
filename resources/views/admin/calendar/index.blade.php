@@ -311,25 +311,26 @@
             $('#deleteBtn').click(function (e) {
                 e.preventDefault();
                 id = $("#event_id").val()
-                didConfirm = confirm("Are you sure you want to permanently delete this entry?")
+                if (confirm('Are you sure you want to permanently delete this entry?')) {
 
-                $.ajax({
-                    data: $('#eventForm').serialize(),
-                    type:"DELETE",
-                    url:'system-calendar/' + id,
-                    dataType: 'json',
-                    success: function (data) {
-                
-                        $('#eventForm').trigger("reset");
-                        $("#ajaxModal").modal('hide');
-                        $('#calendar').fullCalendar( 'refetchEvents' );
+                    $.ajax({
+                        data: $('#eventForm').serialize(),
+                        type:"DELETE",
+                        url:'system-calendar/' + id,
+                        dataType: 'json',
+                        success: function (data) {
                     
-                    },
-                    error: function (data) {
-                        console.log('Error:', data);
-                        $('#saveBtn').html('Save Changes');
-                    }
-                });
+                            $('#eventForm').trigger("reset");
+                            $("#ajaxModal").modal('hide');
+                            $('#calendar').fullCalendar( 'refetchEvents' );
+                        
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            $('#saveBtn').html('Save Changes');
+                        }
+                    })
+                }
             });
 
             // Unselect calendar events on modal close
