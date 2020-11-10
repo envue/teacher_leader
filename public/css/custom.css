@@ -3,21 +3,9 @@ textarea {
     min-height: 150px;
 }*/
 
-/*
-#Table {
-    table-layout: fixed;
-    width: 100% !important;
-  }
-  #Table td{
-    text-overflow: ellipsis;
-  }
-*/
-
-
 .dataTables_scrollHeadInner, .datatable {
     width: 100% !important;
 }
-
 
 table.dataTable tbody td.select-checkbox::before,
 table.dataTable tbody td.select-checkbox::after,
@@ -25,7 +13,6 @@ table.dataTable tbody th.select-checkbox::before,
 table.dataTable tbody th.select-checkbox::after {
     top: 50%;
 }
-
 
 .dataTables_length,
 .dataTables_filter,
@@ -118,4 +105,8 @@ div.notification-dot {
 .bootstrap-switch { 
     float:right; margin-left: 10px; 
     margin-top: -5px; 
+}
+
+.modal-open[style] {
+    padding-right: 0px !important;
 }

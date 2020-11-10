@@ -2,7 +2,7 @@ $(document).ready(function () {
   window._token = $('meta[name="csrf-token"]').attr('content')
 
   moment.updateLocale('en', {
-    week: {dow: 1} // Monday is the first day of the week
+    week: {dow: 0} // Sunday is the first day of the week
   })
 
   $('.date').datetimepicker({

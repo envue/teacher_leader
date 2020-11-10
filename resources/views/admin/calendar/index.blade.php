@@ -36,7 +36,7 @@
       </div>
       <div class="modal-body">
         
-        <form id="eventForm" name="eventForm">
+        <form id="eventForm" name="eventForm" class="eventForm">
             <input type="hidden" name="event_id" id="event_id">
             <div class="row">
                 <div class="col-md-6 col-xs-6 form-group">
@@ -169,6 +169,7 @@
                 height: 700,
                 eventOverlap: false,
                 weekends: false,
+                unselectCancel: '#ajaxModal',
 
                 // When calendar event is clicked
                 eventClick: function(calEvent, jsEvent, view) {
@@ -329,6 +330,11 @@
                         $('#saveBtn').html('Save Changes');
                     }
                 });
+            });
+
+            // Unselect calendar events on modal close
+            $("#ajaxModal").on('hidden.bs.modal', function(){
+                $('#calendar').fullCalendar( 'unselect' );
             });
 
             //Conditionally show/hide fields based on work type options

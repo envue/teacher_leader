@@ -27,9 +27,9 @@ class TimeReportController extends Controller
             $from = Carbon::parse($parts[0])->startOfDay();
             $to = Carbon::parse($parts[1])->endOfDay();
         } else {
-            $carbon_date_from = new Carbon('last Monday');
+            $carbon_date_from = new Carbon('last Sunday');
             $from = $carbon_date_from->startOfDay();
-            $carbon_date_to = new Carbon('this Sunday');
+            $carbon_date_to = new Carbon('this Saturday');
             $to = $carbon_date_to->endOfDay();
         }
         

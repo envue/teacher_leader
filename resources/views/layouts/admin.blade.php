@@ -99,7 +99,7 @@
         </div>
 
         <footer class="main-footer">
-            <strong> &copy;</strong> School Social Work Net {{ trans('global.allRightsReserved') }}. Version 2.0-beta.
+            <strong> &copy;</strong> School Social Work Net {{ trans('global.allRightsReserved') }} Version 2.0-beta.
         </footer>
         <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}

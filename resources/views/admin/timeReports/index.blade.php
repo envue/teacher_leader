@@ -171,24 +171,18 @@
 
     <!-- Include Required Prerequisites -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>-->
-    <!-- Include Date Range Picker -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-
-    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> 
 
     <script type="text/javascript">
         $(function () {
             let dateInterval = getQueryParameter('date_filter');
-            let start = moment().startOf('isoWeek');
-            let end = moment().endOf('isoWeek');
+            let start = moment().startOf('Week');
+            let end = moment().endOf('Week');
             if (dateInterval) {
                 dateInterval = dateInterval.split(' - ');
                 start = dateInterval[0];
                 end = dateInterval[1];
             }        
-           
            
             $('#date_filter').daterangepicker({
                 "showDropdowns": true,
